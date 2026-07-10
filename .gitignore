@@ -1,0 +1,12 @@
+# dependencies & build output
+node_modules/
+dist/
+
+# secrets & local
+.npmrc
+*.log
+
+# internal tooling — not part of the published product
+.claude/
+.specify/
+specs/

@@ -1,0 +1,38 @@
+{
+  "name": "@nexalix/ledgent",
+  "version": "0.1.0",
+  "description": "Every token accounted for. Local cost report for AI coding agents — reads sessions already on disk, zero API calls.",
+  "license": "Apache-2.0",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Nexalix-Labs/ledgent.git"
+  },
+  "homepage": "https://github.com/Nexalix-Labs/ledgent#readme",
+  "type": "module",
+  "bin": {
+    "ledgent": "dist/cli.js"
+  },
+  "files": [
+    "dist",
+    "CHANGELOG.md"
+  ],
+  "scripts": {
+    "dev": "tsx src/cli.ts",
+    "build": "tsc",
+    "prepublishOnly": "npm run build",
+    "bundle": "esbuild src/cli.ts --bundle --platform=node --format=esm --target=node18 --outfile=dist/ledgent.mjs",
+    "report": "tsx src/cli.ts report"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "esbuild": "^0.24.2",
+    "tsx": "^4.19.0",
+    "typescript": "^5.6.0"
+  }
+}

@@ -1,0 +1,12 @@
+version: 2
+updates:
+  # Keep GitHub Actions current (and, once pinned to SHAs, bump those SHAs).
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+  # Dev dependencies (esbuild, typescript, tsx, @types/node).
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
