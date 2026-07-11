@@ -7,6 +7,8 @@
 [![node](https://img.shields.io/node/v/@nexalix/ledgent?color=00C896)](https://nodejs.org)
 [![runtime deps](https://img.shields.io/badge/runtime%20deps-0-00C896)](./package.json)
 
+![ledgent report](https://raw.githubusercontent.com/Nexalix-Labs/ledgent/main/docs/report.png)
+
 An honest, local cost report for AI coding agents. `ledgent` reads the session
 logs Claude Code already writes to your disk and turns invisible token spend into
 a legible number — **zero API calls, zero network, your data stays on your machine.**
@@ -14,24 +16,6 @@ a legible number — **zero API calls, zero network, your data stays on your mac
 The headline it surfaces is usually uncomfortable: on real agent workloads the
 large majority of spend is **context upkeep — re-reading and re-writing cached
 context — not generation.** `ledgent` shows you exactly where it goes.
-
-```
-  · · ● ledgent   every token accounted for
-
-  LAST 30 DAYS
-  $15,529 · 3,303 sessions · 76,965 turns · 26 projects
-
-  89% of your spend is context upkeep, not intelligence
-  cache read $7,208 (46%) + cache write $6,898 (44%) vs output $1,447 (9%)
-
-  THE BURN ──────────────────────────────────── cost by bucket
-  cache read         $7,208   46%  ▓▓▓▓▓▓▓▓▓▓▓▓░░░░
-  cache write 1h     $5,743   36%  ▓▓▓▓▓▓▓▓▓▓░░░░░░
-  output             $1,447    9%  ▓▓░░░░░░░░░░░░░░
-  cache write 5m     $1,155    7%  ▓▓░░░░░░░░░░░░░░
-  fresh input          $206    1%  ░░░░░░░░░░░░░░░░
-  ...
-```
 
 ## Install
 
