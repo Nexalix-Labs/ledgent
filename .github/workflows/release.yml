@@ -17,7 +17,7 @@ jobs:
     steps:
       # NOTE: pin these to full commit SHAs for supply-chain hardening; Dependabot
       # (.github/dependabot.yml) tracks updates. Kept on tags here for readability.
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - uses: actions/setup-node@v4
         with:
