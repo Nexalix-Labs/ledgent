@@ -102,7 +102,7 @@ export function buildReport(
   let to = -Infinity;
 
   for (const r of records) {
-    const price = priceFor(r.model, overrides);
+    const price = priceFor(r.model, overrides, r.fast);
     if (price.estimated) usedEstimatedPrice = true;
     const parts = costParts(r, price);
     const cost = parts.input + parts.output + parts.cacheRead + parts.cacheWrite5m + parts.cacheWrite1h;
@@ -127,7 +127,9 @@ export function buildReport(
       if (t > to) to = t;
     }
 
-    const mk = priceKey(r.model) || r.model;
+    // Fast turns group separately (the key carries ":fast") — folding them in
+    // would print one rate for a row billed at two.
+    const mk = priceKey(r.model, r.fast) || r.model;
     let mb = byModel.get(mk);
     if (!mb) byModel.set(mk, (mb = empty()));
     add(mb, r, cost);
