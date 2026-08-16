@@ -14,6 +14,7 @@ export interface UsageRecord extends UsageBuckets {
   model: string;
   ts: Date;
   isSidechain: boolean;
+  fast: boolean; // usage.speed === "fast" — Opus fast mode bills at 2x
 }
 
 /** Default location of Claude Code session logs. Respects CLAUDE_CONFIG_DIR. */
@@ -79,6 +80,7 @@ function toRecord(o: any): UsageRecord | null {
     model,
     ts,
     isSidechain: o.isSidechain === true,
+    fast: usage.speed === "fast",
     input: num(usage.input_tokens),
     output: num(usage.output_tokens),
     cacheRead: num(usage.cache_read_input_tokens),

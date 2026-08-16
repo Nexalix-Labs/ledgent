@@ -46,7 +46,7 @@ ledgent report --all           # ignore the window, scan everything
 ledgent report --days 7        # a different window
 ledgent report --project foo   # only sessions whose path contains "foo"
 ledgent report --redact        # replace project names with project-a/b/c
-ledgent report --prices px.json  # override model prices (intro rates, new models)
+ledgent report --prices px.json  # override model prices (new models, your discount)
 ledgent update                 # check GitHub & install the latest (asks first)
 ledgent --version
 ```
@@ -74,9 +74,15 @@ run-rate forecast.
 > If you run agents on a subscription you did not literally pay them; the number
 > is what the same work costs a la carte, which is the honest basis for comparison.
 
-Prices are the published sticker rates (Opus 4.8 $5/$25, Fable 5 $10/$50, Sonnet 5
-$3/$15, Haiku 4.5 $1/$5); 1M-context models carry no long-context premium. A model
-with no built-in price is flagged `~est` and can be corrected with `--prices`.
+Prices are the published sticker rates, catalogued **per model version** because
+the rate moves within a family — Sonnet 5 bills $2/$10 while Sonnet 4.6 bills
+$3/$15, and the retired Opus 4.1 is 3× the current Opus. Fast mode
+(`usage.speed`, what Claude Code's `/fast` toggles) is the same model served
+faster at 2×, so an Opus 5 fast turn is priced $10/$50 and reported on its own
+`opus-5:fast` row. Context size never changes the per-token rate: there is no
+long-context premium tier. A model with no catalogued rate falls back to the
+nearest version of its family, is flagged `~est`, and can be corrected with
+`--prices` (keyed exactly as the rates footer prints them).
 
 ## ledgent vs ccusage
 

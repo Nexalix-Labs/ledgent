@@ -22,6 +22,8 @@
   "scripts": {
     "dev": "tsx src/cli.ts",
     "build": "tsc",
+    "test": "tsx test/pricing.test.ts",
+    "verify": "npm run build && npm test",
     "prepublishOnly": "npm run build",
     "bundle": "esbuild src/cli.ts --bundle --platform=node --format=esm --target=node18 --outfile=dist/ledgent.mjs",
     "report": "tsx src/cli.ts report"

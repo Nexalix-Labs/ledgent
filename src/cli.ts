@@ -105,7 +105,8 @@ Options
   --all             ignore the window, scan everything
   --project <str>   only sessions whose path contains <str>   (-p)
   --top <n>         projects to list in the full report (default 5)
-  --prices <file>   JSON price overrides, keyed by opus|sonnet|haiku|fable
+  --prices <file>   JSON price overrides, keyed as in the rates footer
+                    (opus-5, sonnet-4.6, opus-5:fast, ...)
   --root <dir>      session log root (default ${defaultRoot()})
   --json            machine-readable output
   --version         print version                              (-v)

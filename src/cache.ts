@@ -15,7 +15,9 @@ import type { UsageRecord } from "./parse.js";
 
 const CACHE_DIR = join(homedir(), ".ledgent");
 const CACHE_FILE = join(CACHE_DIR, "cache.json");
-const CACHE_VERSION = 1;
+// v2 added the fast-mode flag; v1 entries predate it and would read back as
+// standard speed, understating an Opus fast turn by half. Bump = full re-parse.
+const CACHE_VERSION = 2;
 
 /** Compact on-disk record — short keys keep the cache file small. */
 interface SerRecord {
@@ -25,6 +27,7 @@ interface SerRecord {
   m: string;
   t: number; // epoch ms
   x: boolean; // isSidechain
+  f: boolean; // fast mode
   i: number;
   o: number;
   cr: number;
@@ -72,6 +75,7 @@ export function serialize(r: UsageRecord): SerRecord {
     m: r.model,
     t: r.ts.getTime(),
     x: r.isSidechain,
+    f: r.fast,
     i: r.input,
     o: r.output,
     cr: r.cacheRead,
@@ -88,6 +92,7 @@ export function deserialize(s: SerRecord): UsageRecord {
     model: s.m,
     ts: new Date(s.t),
     isSidechain: s.x,
+    fast: s.f === true,
     input: s.i,
     output: s.o,
     cacheRead: s.cr,
