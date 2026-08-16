@@ -73,7 +73,7 @@ jobs:
           rm -f signing_key.pem dist/SHA256SUMS.sig.bin
 
       - name: GitHub Release (OTA channel)
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v3
         with:
           files: |
             dist/ledgent.mjs
