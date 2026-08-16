@@ -7,6 +7,9 @@ on:
 
 permissions:
   contents: write
+  # Trusted publishing: npm exchanges this short-lived OIDC token for publish
+  # rights, so the repo holds no long-lived npm credential at all.
+  id-token: write
 
 jobs:
   release:
@@ -18,8 +21,13 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: "20"
+          # Trusted publishing needs Node >= 22.14.0; 24 also ships npm 11.x.
+          node-version: "24"
           registry-url: "https://registry.npmjs.org"
+
+      # Pin the floor explicitly rather than trusting whichever npm the Node
+      # image happens to bundle — trusted publishing needs npm >= 11.5.1.
+      - run: npm install -g npm@latest
 
       - run: npm ci
 
@@ -71,10 +79,14 @@ jobs:
             dist/ledgent.mjs
             dist/SHA256SUMS*
 
-      # npm is the second channel. Requires the NPM_TOKEN secret; the GitHub
-      # release above (the OTA channel) is unaffected if npm publish is skipped.
+      # npm is the second channel, published via trusted publishing (OIDC) — no
+      # NPM_TOKEN secret, and npm attaches a provenance attestation on its own.
+      # Requires a Trusted Publisher on npmjs.com pointing at this repo and this
+      # workflow filename; without it the step fails and the run goes red.
+      #
+      # Deliberately NOT continue-on-error: masking this is how v0.2.0 shipped a
+      # green run while npm publish died on ENEEDAUTH. The GitHub Release above
+      # is already created by this point, so a failure here costs only the npm
+      # channel — rerun the job once the npm side is fixed.
       - name: Publish to npm
-        continue-on-error: true
         run: npm publish --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
