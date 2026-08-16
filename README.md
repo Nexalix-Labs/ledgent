@@ -122,14 +122,23 @@ No telemetry, ever. Session contents never leave your machine.
 ```sh
 npm install
 npm run dev -- report      # run from source (tsx)
+npm test                   # pricing catalogue vs the published rate table
+npm run verify             # build + test — the release gate
 npm run build              # tsc → dist (npm bin)
 npm run bundle             # esbuild → dist/ledgent.mjs (single-file OTA artifact)
 npx tsc --noEmit           # typecheck
 ```
 
-Zero runtime dependencies. Built spec-driven (see `specs/`) against a fixed
-design (`ledgent report` renders to a dark, JetBrains-Mono, 80-column terminal
-spec — eight colors, box-drawing callouts, saturated color reserved for meaning).
+Zero runtime dependencies. Built spec-driven against a fixed design (`ledgent
+report` renders to a dark, JetBrains-Mono, 80-column terminal spec — eight
+colors, box-drawing callouts, saturated color reserved for meaning).
+
+`npm test` checks the rate catalogue against the numbers published on
+[Anthropic's pricing page](https://platform.claude.com/docs/en/about-claude/pricing),
+cache columns included — so the derived 0.1×/1.25×/2× multipliers are verified
+against an independent source rather than restated. Prices are data with a date:
+when they move, update `PRICES` and `RATES_AS_OF` in `src/pricing.ts` together
+and the test tells you whether the table still agrees with the page.
 
 ## License
 
