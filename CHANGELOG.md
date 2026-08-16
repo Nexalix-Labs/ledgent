@@ -6,6 +6,21 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [0.2.2] — 2026-08-16
+
+### Fixed
+
+- **render:** The rates footer wraps instead of overrunning the report. One
+  entry per model made that line 87 columns once the keys carried versions,
+  against a 60-column layout, so the terminal broke it wherever it landed —
+  usually through the middle of a rate. (0358202)
+
+### Docs
+
+- The README screenshot is captured from a 0.2.x report. The old one was taken
+  on 0.1.0 and showed bare `opus`/`sonnet` rows with Sonnet at $3/$15 — the
+  pricing this line of releases exists to correct. (1edb7d0)
+
 ## [0.2.1] — 2026-08-16
 
 No functional change from 0.2.0. This is the first release to actually reach
@@ -86,7 +101,8 @@ already run 0.2.0 from the GitHub release channel, there is nothing new here.
   `@nexalix/ledgent` npm package, and a tag-triggered GitHub Actions release
   pipeline that builds, bundles, checksums, signs and publishes.
 
-[Unreleased]: https://github.com/Nexalix-Labs/ledgent/compare/v0.2.1...HEAD
+[Unreleased]: https://github.com/Nexalix-Labs/ledgent/compare/v0.2.2...HEAD
+[0.2.2]: https://github.com/Nexalix-Labs/ledgent/compare/v0.2.1...v0.2.2
 [0.2.1]: https://github.com/Nexalix-Labs/ledgent/compare/v0.2.0...v0.2.1
 [0.2.0]: https://github.com/Nexalix-Labs/ledgent/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/Nexalix-Labs/ledgent/releases/tag/v0.1.0
