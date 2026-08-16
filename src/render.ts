@@ -182,16 +182,27 @@ function footer(): string[] {
 
 /** Auditable, dated rate note — the exact per-model rates the numbers used. */
 function ratesLines(rep: Report): string[] {
-  const models = rep.byModel
+  const parts = rep.byModel
     .filter((m) => rep.rates[m.model])
     .map((m) => {
       const rt = rep.rates[m.model]!;
       return `${m.model} $${rt.input}/$${rt.output}${rt.estimated ? "~" : ""}`;
-    })
-    .join(" · ");
+    });
+  // Version-keyed names made this list long enough to overrun W, so wrap it
+  // here instead of letting the terminal break a rate mid-token. Width is
+  // measured on the raw text — subtle() adds escapes that occupy no columns.
+  const rows: string[] = [];
+  for (const part of parts) {
+    const last = rows[rows.length - 1];
+    if (last !== undefined && last.length + 3 + part.length <= W) {
+      rows[rows.length - 1] = `${last} · ${part}`;
+    } else {
+      rows.push(part);
+    }
+  }
   return [
     IND + subtle(`rates as of ${RATES_AS_OF} (USD per 1M tokens)`),
-    IND + subtle(models),
+    ...rows.map((r) => IND + subtle(r)),
     IND + subtle("cache read ×0.1 · write 5m ×1.25 · write 1h ×2"),
   ];
 }
