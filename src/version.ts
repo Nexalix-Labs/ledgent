@@ -4,7 +4,7 @@
  * workflow). Keeping it a compile-time constant makes the bundle self-describing
  * without reading package.json at runtime.
  */
-export const VERSION = "0.2.0";
+export const VERSION = "0.2.1";
 
 /** Pinned GitHub repo the OTA updater trusts. Never resolved from user input. */
 export const REPO = "Nexalix-Labs/ledgent";
