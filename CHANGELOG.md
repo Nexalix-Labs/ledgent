@@ -6,6 +6,22 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [0.2.1] — 2026-08-16
+
+No functional change from 0.2.0. This is the first release to actually reach
+npm, so `npm install -g @nexalix/ledgent` finally picks up 0.2.0's pricing
+corrections — Sonnet 5 at $2/$10, per-version rates, fast-mode billing. If you
+already run 0.2.0 from the GitHub release channel, there is nothing new here.
+
+### Fixed
+
+- **release:** npm publishing authenticates with trusted publishing (OIDC)
+  rather than an `NPM_TOKEN` secret that was never configured — v0.2.0 reported
+  a green run while `npm publish` died on `ENEEDAUTH`, leaving npm on 0.1.0.
+  The publish step no longer runs under `continue-on-error`, so a broken
+  publish is visible instead of masked, and npm now attaches a provenance
+  attestation to the package. (646212e)
+
 ## [0.2.0] — 2026-08-16
 
 ### ⚠ Breaking
@@ -70,6 +86,7 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   `@nexalix/ledgent` npm package, and a tag-triggered GitHub Actions release
   pipeline that builds, bundles, checksums, signs and publishes.
 
-[Unreleased]: https://github.com/Nexalix-Labs/ledgent/compare/v0.2.0...HEAD
+[Unreleased]: https://github.com/Nexalix-Labs/ledgent/compare/v0.2.1...HEAD
+[0.2.1]: https://github.com/Nexalix-Labs/ledgent/compare/v0.2.0...v0.2.1
 [0.2.0]: https://github.com/Nexalix-Labs/ledgent/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/Nexalix-Labs/ledgent/releases/tag/v0.1.0

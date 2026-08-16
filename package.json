@@ -1,6 +1,6 @@
 {
   "name": "@nexalix/ledgent",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Every token accounted for. Local cost report for AI coding agents — reads sessions already on disk, zero API calls.",
   "license": "Apache-2.0",
   "publishConfig": {
